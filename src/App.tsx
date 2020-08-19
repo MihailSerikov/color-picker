@@ -1,11 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// import logo from './logo.svg';
+import { ColorPicker } from './components/ColorPicker';
+import { COLORS } from './utilities/constants';
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="App">
-      <header className="App-header">
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
@@ -18,9 +19,14 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
+      <ColorPicker
+        value="#000000"
+        onChange={() => console.log('Color has been changed')}
+        colors={COLORS}
+      />
     </div>
   );
-}
+};
 
 export default App;
