@@ -1,0 +1,204 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.container {
+  min-width: 260px;
+  display: flex;
+  align-items: center;
+
+  label {
+    text-transform: uppercase;
+    font-weight: 500;
+    color: $grey-text-color;
+    margin-right: 10px;
+  }
+
+  input {
+    flex: 1
+  }
+}
+
+$track-color: #eceff1 !default;
+$thumb-color: #ffffff !default;
+
+$thumb-radius: 50% !default;
+$thumb-height: 16px !default;
+$thumb-width: 16px !default;
+$thumb-shadow-size: 4px !default;
+$thumb-shadow-blur: 4px !default;
+$thumb-shadow-color: rgba(0, 0, 0, .2) !default;
+$thumb-border-width: 1px !default;
+$thumb-border-color: $border-color !default;
+
+$track-width: 100% !default;
+$track-height: 8px !default;
+$track-shadow-size: 1px !default;
+$track-shadow-blur: 1px !default;
+$track-shadow-color: rgba(0, 0, 0, .2) !default;
+$track-border-width: 1px !default;
+$track-border-color: transparent !default;
+
+$track-radius: 2px !default;
+$contrast: 5% !default;
+
+$ie-bottom-track-color: darken($track-color, $contrast) !default;
+
+@mixin shadow($shadow-size, $shadow-blur, $shadow-color) {
+  box-shadow: $shadow-size $shadow-size $shadow-blur $shadow-color, 0 0 $shadow-size lighten($shadow-color, 5%);
+}
+
+@mixin track {
+  cursor: pointer;
+  height: $track-height;
+  transition: all .2s ease;
+  width: $track-width;
+}
+
+@mixin thumb {
+  background: $thumb-color;
+  border: $thumb-border-width solid $thumb-border-color;
+  border-radius: $thumb-radius;
+  box-sizing: border-box;
+  cursor: pointer;
+  height: $thumb-height;
+  width: $thumb-width;
+  transition: transform .25s ease-in-out, border-color .2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}
+
+[type='range'] {
+  -webkit-appearance: none;
+  background: transparent;
+  margin: $thumb-height / 2 0;
+  width: $track-width;
+
+  &.r {
+    &::-webkit-slider-runnable-track {
+      background: linear-gradient(to right, rgb(0, 0, 0) 0%,rgb(255, 0, 0) 100%);
+    }
+
+    &::-moz-range-track {
+      background: linear-gradient(to right, rgb(0, 0, 0) 0%,rgb(255, 0, 0) 100%);
+    }
+
+    &::-ms-fill-upper {
+      background: linear-gradient(to right, rgb(0, 0, 0) 0%,rgb(255, 0, 0) 100%);
+    }
+  }
+
+  &.g {
+    &::-webkit-slider-runnable-track {
+      background: linear-gradient(to right, rgb(0, 0, 0) 0%,rgb(0, 255, 0) 100%);
+    }
+
+    &::-moz-range-track {
+      background: linear-gradient(to right, rgb(0, 0, 0) 0%,rgb(0, 255, 0) 100%);
+    }
+
+    &::-ms-fill-upper {
+      background: linear-gradient(to right, rgb(0, 0, 0) 0%,rgb(255, 0, 0) 100%);
+    }
+  }
+
+  &.b {
+    &::-webkit-slider-runnable-track {
+      background: linear-gradient(to right, rgb(0, 0, 0) 0%,rgb(0, 0, 255) 100%);
+    }
+
+    &::-moz-range-track {
+      background: linear-gradient(to right, rgb(0, 0, 0) 0%,rgb(0, 0, 255) 100%);
+    }
+
+    &::-ms-fill-upper {
+      background: linear-gradient(to right, rgb(0, 0, 0) 0%,rgb(255, 0, 0) 100%);
+    }
+  }
+
+  &::-moz-focus-outer {
+    border: 0;
+  }
+
+  &:focus {
+    outline: 0;
+
+    &::-webkit-slider-thumb {
+      @include z-depth-2;
+      border-color: darken($thumb-border-color, $contrast);
+    }
+
+    &::-moz-range-thumb {
+      @include z-depth-2;
+      border-color: darken($thumb-border-color, $contrast);
+    }
+
+    &::-ms-thumb {
+      @include z-depth-2;
+      border-color: darken($thumb-border-color, $contrast);
+    }
+  }
+
+  &::-webkit-slider-runnable-track {
+    @include track;
+    @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+    // border: $track-border-width solid $track-border-color;
+    border-radius: $track-radius;
+  }
+
+  &::-webkit-slider-thumb {
+    @include thumb;
+    -webkit-appearance: none;
+    margin-top: ((-$track-border-width * 2 + $track-height) / 2 - $thumb-height / 2);
+  }
+
+  &::-moz-range-track {
+    @include track;
+    @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+    // border: $track-border-width solid $track-border-color;
+    border-radius: $track-radius;
+    height: $track-height / 2;
+  }
+
+  &::-moz-range-thumb {
+    @include thumb;
+  }
+
+  &::-ms-track {
+    @include track;
+    background: transparent;
+    border-color: transparent;
+    border-width: ($thumb-height / 2) 0;
+    color: transparent;
+  }
+
+  &::-ms-fill-lower {
+    @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+    background: $ie-bottom-track-color;
+    // border: $track-border-width solid $track-border-color;
+    border-radius: ($track-radius * 2);
+  }
+
+  &::-ms-fill-upper {
+    @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+    // border: $track-border-width solid $track-border-color;
+    border-radius: ($track-radius * 2);
+  }
+
+  &::-ms-thumb {
+    @include thumb;
+    margin-top: $track-height / 4;
+  }
+
+  &:disabled {
+    &::-webkit-slider-thumb,
+    &::-moz-range-thumb,
+    &::-ms-thumb,
+    &::-webkit-slider-runnable-track,
+    &::-ms-fill-lower,
+    &::-ms-fill-upper {
+      cursor: not-allowed;
+    }
+  }
+}

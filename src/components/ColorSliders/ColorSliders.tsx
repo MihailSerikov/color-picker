@@ -4,6 +4,8 @@ import { RGBColor } from '../../types/Colors';
 import { ColorsReducerContext } from '../ColorPicker';
 import { Slider } from './Slider';
 
+import styles from './ColorSliders.module.scss';
+
 interface ColorSlidersProps {
   initValue: RGBColor;
 }
@@ -23,7 +25,7 @@ export const ColorSliders: React.FC<ColorSlidersProps> = ({
   }, [state]);
 
   return (
-    <div>
+    <div className={styles.container}>
       <Slider value={state.r} type="r" dispatch={dispatch} />
       <Slider value={state.g} type="g" dispatch={dispatch} />
       <Slider value={state.b} type="b" dispatch={dispatch} />
