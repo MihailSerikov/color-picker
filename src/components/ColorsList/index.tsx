@@ -1,25 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Color } from '../../interfaces/Colors';
 import { ColorBox } from '../ColorBox';
+import { ColorsReducerContext } from '../ColorPicker';
 
 import styles from './ColorsList.module.scss';
 
 interface ColorsListProps {
   colors: Color[];
-  onItemClick: (color: string) => any;
 }
 
 export const ColorsList: React.FC<ColorsListProps> = ({
   colors,
-  onItemClick,
 }: ColorsListProps) => {
+  const { dispatch: changeColor } = useContext(ColorsReducerContext);
+
   return (
     <div className={styles.list}>
       {colors.map(({ name, value }) => (
         <li
           key={name}
           className={styles.item}
-          onClick={() => onItemClick(value)}
+          onClick={() => changeColor({ type: 'hex', payload: value })}
         >
           {name}
           <ColorBox color={value} />
