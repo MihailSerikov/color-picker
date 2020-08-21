@@ -1,11 +1,13 @@
-import { RGBColor } from '../types/Colors';
+export interface RGBColor {
+  r: number;
+  g: number;
+  b: number;
+}
 
-export interface Color {
-  name: string;
+export interface HEXColor {
   value: string;
 }
 
-export interface ColorObj {
-  rgb: RGBColor;
-  hex: string;
+export interface Colors extends HEXColor {
+  name: string;
 }

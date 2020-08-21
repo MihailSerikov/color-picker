@@ -1,37 +1,61 @@
 import React, { useContext, useEffect, useReducer } from 'react';
 import { RGBReducer } from '../../reducers';
-import { RGBColor } from '../../types/Colors';
-import { ColorsReducerContext } from '../ColorPicker';
+import { ColorsReducerContext } from '../ColorPicker/ColorPicker';
 import { Slider } from './Slider';
+import cx from 'classnames';
 
 import styles from './ColorSliders.module.scss';
 
+import { Colors, RGBColor } from '../../interfaces/Colors';
+import { DropdownContext } from '../Dropdown/Dropdown';
+
 interface ColorSlidersProps {
-  initValue: RGBColor;
+  rgbValue: RGBColor;
+  hexValue: Colors;
 }
 
 export const ColorSliders: React.FC<ColorSlidersProps> = ({
-  initValue,
-}: ColorSlidersProps) => {
-  const [state, dispatch] = useReducer(RGBReducer, initValue);
+  rgbValue,
+  hexValue,
+}) => {
+  const [state, dispatch] = useReducer(RGBReducer, rgbValue);
   const { dispatch: changeColor } = useContext(ColorsReducerContext);
-  // console.log('changeColor', changeColor);
-  // console.log('state', state);
+  const { setOpen } = useContext(DropdownContext);
+
+  const resetSlider = () => {
+    changeColor({ type: 'SLIDER_RESET', payload: hexValue });
+    setOpen(false);
+  };
+
+  const submitSlider = () => {
+    changeColor({ type: 'SLIDER_SUBMIT', payload: rgbValue });
+    setOpen(false);
+  };
 
   useEffect(() => {
-    // console.log('state', state);
-    // here should be dispatch from ColorPicker component from context
-    changeColor({ type: 'rgb', payload: state });
-  }, [state]);
+    changeColor({ type: 'CHANGE_SLIDERS', payload: state });
+  }, [state, changeColor]);
 
   return (
     <div className={styles.container}>
       <Slider value={state.r} type="r" dispatch={dispatch} />
       <Slider value={state.g} type="g" dispatch={dispatch} />
       <Slider value={state.b} type="b" dispatch={dispatch} />
-      <div>
-        <button type="button">Cancel</button>
-        <button type="button">Ok</button>
+      <div className={styles.actions}>
+        <button
+          className={cx(styles.btn, styles.cancel)}
+          type="button"
+          onClick={resetSlider}
+        >
+          Cancel
+        </button>
+        <button
+          className={cx(styles.btn, styles.submit)}
+          type="button"
+          onClick={submitSlider}
+        >
+          Ok
+        </button>
       </div>
     </div>
   );

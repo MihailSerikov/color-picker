@@ -1,3 +1,48 @@
+@import '../../styles/variables';
+
 .container {
   padding: 10px;
+}
+
+.actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+$submit-bg-color: #6BA559 !default;
+$cancel-bg-color: #D1D2D4 !default;
+
+.btn {
+  padding: 4px 10px;
+  border: none;
+  border-radius: 2px;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color .2s ease-in-out;
+
+  &.submit {
+    background-color: $submit-bg-color;
+    color: #ffffff;
+
+    &:hover {
+      background-color: lighten($submit-bg-color, 5%);
+    } 
+  }
+
+  &.cancel {
+    background-color: $cancel-bg-color;
+    color: $grey-text-color;
+
+    &:hover {
+      background-color: lighten($cancel-bg-color, 5%)
+    }
+  }
+
+  & + & {
+    margin-left: 5px;
+  }
 }

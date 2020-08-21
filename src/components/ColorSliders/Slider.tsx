@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import styles from './Slider.module.scss';
 
@@ -16,7 +16,6 @@ export const Slider: React.FC<SliderProps> = ({
   const handleChange = ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(`${type} Slider value changed`);
     dispatch({
       type: type,
       payload: +value,

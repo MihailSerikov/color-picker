@@ -20,7 +20,6 @@
 }
 
 .dropdownContent {
-  display: none;
   position: absolute;
   top: calc(100% + 10px);
   background-color: #ffffff;
@@ -37,9 +36,5 @@
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
     border-bottom: 8px solid #ffffff;
-  }
-
-  &.open {
-    display: block;
   }
 }

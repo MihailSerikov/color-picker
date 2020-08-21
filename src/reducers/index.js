@@ -1,17 +1,27 @@
 import { hexToRgb, rgbToHex } from '../utilities/helpers';
 
 export const ColorsReducer = (state, action) => {
-  console.log('colors changed !!!', action);
   switch (action.type) {
-    case 'rgb':
+    case 'CHANGE_SLIDERS':
       return {
-        hex: rgbToHex(action.payload),
+        ...state,
         rgb: action.payload,
       };
-    case 'hex':
+    case 'SELECT_COLOR':
       return {
+        ...state,
         hex: action.payload,
         rgb: hexToRgb(action.payload),
+      };
+    case 'SLIDER_RESET':
+      return {
+        ...state,
+        rgb: hexToRgb(action.payload),
+      };
+    case 'SLIDER_SUBMIT':
+      return {
+        ...state,
+        hex: rgbToHex(action.payload),
       };
     default:
       return state;

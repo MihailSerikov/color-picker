@@ -1,28 +1,17 @@
-import React from 'react';
-// import logo from './logo.svg';
-import { ColorPicker } from './components/ColorPicker';
+import React, { useState } from 'react';
+import { ColorPicker } from './components/ColorPicker/ColorPicker';
 import { COLORS } from './utilities/constants';
 
 const App: React.FC = () => {
+  const [state, setState] = useState('#000000');
   return (
     <div className="App">
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
       <ColorPicker
-        value="#000000"
-        onChange={() => console.log('Color has been changed')}
+        value={state}
+        onChange={(color) => {
+          // setState(color);
+          console.log('Color has been changed on', color);
+        }}
         colors={COLORS}
       />
     </div>
