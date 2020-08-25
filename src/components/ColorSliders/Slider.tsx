@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { Dispatch } from 'react';
+import { RGBAction } from '../../reducers/rgb';
 
 import styles from './Slider.module.scss';
 
 interface SliderProps {
   value: number;
   type: 'r' | 'g' | 'b';
-  dispatch: ({}) => void;
+  dispatch: Dispatch<RGBAction>;
 }
 
 export const Slider: React.FC<SliderProps> = ({
@@ -15,7 +16,7 @@ export const Slider: React.FC<SliderProps> = ({
 }: SliderProps) => {
   const handleChange = ({
     target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => {
+  }: React.ChangeEvent<HTMLInputElement>): void => {
     dispatch({
       type: type,
       payload: +value,

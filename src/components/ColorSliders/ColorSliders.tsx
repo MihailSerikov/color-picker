@@ -1,17 +1,18 @@
 import React, { useContext, useEffect, useReducer } from 'react';
-import { RGBReducer } from '../../reducers';
+
 import { ColorsReducerContext } from '../ColorPicker/ColorPicker';
 import { Slider } from './Slider';
 import cx from 'classnames';
 
 import styles from './ColorSliders.module.scss';
 
-import { Colors, RGBColor } from '../../interfaces/Colors';
+import { HEXColor, RGBColor } from '../../interfaces/Colors';
 import { DropdownContext } from '../Dropdown/Dropdown';
+import { RGBReducer } from '../../reducers/rgb';
 
 interface ColorSlidersProps {
   rgbValue: RGBColor;
-  hexValue: Colors;
+  hexValue: HEXColor['value'];
 }
 
 export const ColorSliders: React.FC<ColorSlidersProps> = ({
@@ -22,12 +23,12 @@ export const ColorSliders: React.FC<ColorSlidersProps> = ({
   const { dispatch: changeColor } = useContext(ColorsReducerContext);
   const { setOpen } = useContext(DropdownContext);
 
-  const resetSlider = () => {
+  const resetSlider = (): void => {
     changeColor({ type: 'SLIDER_RESET', payload: hexValue });
     setOpen(false);
   };
 
-  const submitSlider = () => {
+  const submitSlider = (): void => {
     changeColor({ type: 'SLIDER_SUBMIT', payload: rgbValue });
     setOpen(false);
   };

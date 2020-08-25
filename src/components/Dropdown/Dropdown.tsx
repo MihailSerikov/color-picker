@@ -13,17 +13,17 @@ export const DropdownContext = createContext<any>({
 export const Dropdown: React.FC<DropdownProps> = ({ trigger, children }) => {
   const [open, setOpen] = useState(false);
   const dropdownContainer: any = useRef(null);
-  const toggleDropdown = () => setOpen(!open);
+  const toggleDropdown = (): void => setOpen(!open);
 
   useEffect(() => {
-    const handleClickOutside = (e: any) => {
+    const handleClickOutside = (e: any): void => {
       if (!dropdownContainer.current.contains(e.target)) {
         setOpen(false);
       }
     };
     window.addEventListener('click', handleClickOutside);
 
-    return () => {
+    return (): void => {
       window.removeEventListener('click', handleClickOutside);
     };
   }, [dropdownContainer]);

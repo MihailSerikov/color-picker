@@ -1,11 +1,11 @@
-import React, { createContext, useEffect, useReducer } from 'react';
+import React, { createContext, Dispatch, useEffect, useReducer } from 'react';
 import { ColorBox } from '../ColorBox/ColorBox';
 import { ColorSliders } from '../ColorSliders/ColorSliders';
 import { ColorsList } from '../ColorsList/ColorsList';
 import { Dropdown } from '../Dropdown/Dropdown';
 
-import { Colors, HEXColor } from '../../interfaces/Colors';
-import { ColorsReducer } from '../../reducers';
+import { ActionProps, ColorsReducer, ColorsState } from '../../reducers/colors';
+import { Colors, HEXColor, RGBColor } from '../../interfaces/Colors';
 import { hexToRgb } from '../../utilities/helpers';
 
 import styles from './ColorPicker.module.scss';
@@ -17,7 +17,7 @@ interface ColorPickerProps {
 }
 
 interface ColorsReducerContextProps {
-  dispatch: ({}) => void;
+  dispatch: Dispatch<ActionProps>;
 }
 
 export const ColorsReducerContext = createContext<ColorsReducerContextProps>({
@@ -31,9 +31,9 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
   onChange,
   colors,
 }) => {
-  const colorObj = {
+  const colorObj: ColorsState = {
     hex: value,
-    rgb: hexToRgb(value),
+    rgb: hexToRgb(value) as RGBColor,
   };
 
   const [state, dispatch] = useReducer(ColorsReducer, colorObj);

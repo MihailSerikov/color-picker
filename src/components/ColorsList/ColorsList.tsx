@@ -14,7 +14,7 @@ export const ColorsList: React.FC<ColorsListProps> = ({ colors }) => {
   const { dispatch: changeColor } = useContext(ColorsReducerContext);
   const { setOpen } = useContext(DropdownContext);
 
-  const handleChangeColor = (value: HEXColor['value']) => {
+  const handleChangeColor = (value: HEXColor['value']): void => {
     changeColor({ type: 'SELECT_COLOR', payload: value });
     setOpen(false);
   };
@@ -25,7 +25,7 @@ export const ColorsList: React.FC<ColorsListProps> = ({ colors }) => {
         <li
           key={name}
           className={styles.item}
-          onClick={() => handleChangeColor(value)}
+          onClick={(): void => handleChangeColor(value)}
         >
           {name}
           <ColorBox color={value} />
